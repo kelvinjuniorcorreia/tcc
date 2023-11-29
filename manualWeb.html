@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Estilo para o menu principal */
+        ul.menu {
+            list-style: none;
+            padding: 0;
+            background-color: #333;
+            display: flex;
+        }
+
+        ul.menu li {
+            margin-right: 20px;
+            position: relative;
+        }
+
+        ul.menu li a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        ul.menu li a:hover {
+            background-color: #555;
+        }
+
+        /* Estilo para o submenu */
+        ul.submenu {
+            display: none;
+            background-color: #555;
+            position: absolute;
+            top: 100%;
+            left: 0;
+        }
+
+        ul.menu li:hover ul.submenu {
+            display: block;
+        }
+
+        ul.submenu li {
+            display: block;
+        }
+
+        ul.submenu li a {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Estilo para a área de mensagens */
+        .mensagem {
+            background-color: #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <ul class="menu">
+        <li><a onclick="toggleSubmenu('submenu1')">Backup</a>
+            <ul class="submenu" id="submenu1">
+                <li><a onclick="mostrarMensagem(`
+                    <h2>O que é?</h2>
+                    <p>Backup é uma cópia de segurança dos seus dados de um dispositivo de armazenamento (celulares, tablets, computadores) ou sistema (aplicativos, softwares e jogos) para outro ambiente para que eles possam ser restaurados se você perdeu as informações originais, trocou de aparelho, entre outros casos.</p>
+                    <p>Dito isso, você já deve imaginar que precisamos copiar essas informações para algum lugar seguro. E para isso, portanto, é necessário decidir se salvará os dados em uma mídia física ou nuvem, se vai usar algum software.</p>
+                    <img src='imgBackup.jpg' alt='Img' >
+                    <h3>Onde fazer o backup</h3>
+                    <p>Antes de tudo, escolha onde a sua cópia ficará salva. Você tem duas opções:</p>
+
+                    <h4>Backup em mídia física</h4>
+                    <p>Como exemplos de mídias físicas e removíveis estão os discos rígidos externos (HDs), CDs e pen drives. Você não deve fazer backup de arquivos de um computador, por exemplo, no mesmo HD em que o seu Windows está instalado.</p>
+
+                    <p>Se optar por mídia física, armazene-a em um lugar seguro para evitar que pessoas não autorizadas tenham acesso aos arquivos. Você também pode considerar criptografar dados e fazê-lo com periodicidade para mantê-lo atualizado.</p>
+                    <h4>Backup em nuvem</h4>
+                    <p>A cópia de segurança na nuvem, também conhecida como cloud backup, leva seus dados para um servidor remoto, ao qual você pode acessar pela Internet. Basicamente, você usa o espaço de armazenamento de outro computador.</p>
+
+                    <p>Há vários serviços de nuvem domésticos e gratuitos como Google Drive, Dropbox, iCloud, Box, OneDrive e outras soluções pagas e mais robustas para empresas. Dependendo do espaço que você precisar, 15 GB podem ser mais que suficientes.</p>
+                    <h4>Exemplos de backup</h4>
+                    <ul>
+                        <li>Backup do WhatsApp</li>
+                        <li>Backup de fotos e vídeos</li>
+                        <li>Backup do iPhone</li>
+                        <li>Backup do Windows</li>
+                        <li>Softwares de Backup</li>
+                    </ul>
+                `)">O que é?</a></li>
+                <li><a onclick="mostrarMensagem(`
+                    <h2>Backup Manual</h2>
+                    <p>Para efetuar um backup diretamente pelo pgAdmin, a ferramenta de gerenciamento do PostgreSQL, basta efetuar os acessos necessários ao software, em seguida selecionar o servidor, database ou tabela desejada para criar a cópia, clicando com o botão direito do mouse e assim selecionando a opção de Backup.</p>
+                    <p>Será necessário o preenchimento de algumas informações como local e nome do arquivo de backup, usuário que está efetuando o processo, a outras opções existentes nas abas “Data/Objects” e “Options”, onde é disponibilizados variados tipos de seleções para um backup ainda mais completo ou específico, conforme necessidade do usuário.</p>
+                    <h5>Localização da rotina de backup via pgadmin</h5>
+                    <img src='caminhoBackupPgAdmin.png' alt='Localização da rotina de backup via pgadmin'>
+                    <br>
+                    <h5>Propriedades da criação de um backup</h5>
+                    <img src='PropriedadesBackupPgAdmin.png' alt='Propriedades da criação de um backup'>
+                `)">Backup Manual</a></li>
+                <li><a onclick="mostrarMensagem(`
+                    <h2>Backup via agendamento</h2>
+                    <p>Além do modo de backup manual, é possível criar uma rotina automatizada via “Agendador de Tarefa do Windows”, caso seja este o sistema operacional disponível. Para servidores Linux a alternativa é feita por meio de serviços. Para efetuar essa rotina automatizada poderá ser utilizado o utilitário pgdump.exe, um arquivo executável que aguarda ser chamado via rotina manual destacada acima ou,  por programas em lote, disponíveis em arquivos com extensão “.bat”. </p>
+                    <p>Arquivos com a extensão .bat ficam reconhecíveis pelo windows e possuem um conjunto de instruções que são executadas em lote, isto é, em uma sequência programada. Para efetuar backup via agendamento, é necessário seguir o seguinte padrão:</p>
+                    <h5>Modelo de fonte para geração de backup via arquivo</h5>
+                    <img src='ArquivoBatBackup.png' alt='Modelo de fonte para geração de backup via arquivo' height='250px'>
+                    <p>Onde:</p>
+                    <ul>
+                        <li><p><b>@echo off: </b>Efetua a limpeza durante do registros do .bat para não gerar lixo durante a execução da rotina;</p></li>
+                        <li><p><b>setlocal: </b>Caso tenha alterações de variáveis de ambiente, esse comando armazena o valor inicial da variável antes sofrer a alteração;</p></li>
+                        <li><p><b>set PGUSER: </b>Usuário com permissão de efetuar backup;</p></li>
+                        <li><p><b>set PGPASSWORD: </b>Senha do usuário destacado acima</p></li>
+                        <li><p><b>set HORA: </b>Gera a hora, minuto e segundos atual para não sobrescrever outros backups gerados;</p></li>
+                        <li><p><b>'C:\Program Files\PostgreSQL\versao\bin\pg_dump.exe': </b>Caminho para chamada do arquivo pgdump.exe do PostgreSQL</p></li>
+                        <li><p><b>-h localhost: </b>Servidor de onde será acessado para efetuar o backup;</p></li>
+                        <li><p><b>-U %PGUSER%: </b>Passa como parâmetro o usuário destacado na variável PGUSER</p></li>
+                        <li><p><b>-d BaseTCC: </b>Nome do Database que será efetuado o Backup</p></li>
+                        <li><p><b>-F c: </b>Tipo do Backup;</p></li>
+                        <li><p><b>-b: </b>Incluir no backup tabelas, índices e funções existentes no banco de dados em questão;</p></li>
+                        <li><p><b>-v: </b>Destaca processos efetuados durante a execução do arquivo;</p></li>
+                        <li><p><b>-f 'C:\Caminho\backup_postgres_%HORA%.sql': </b>Caminho onde será salvo o backup efetuado;</p></li>
+                        <li><p><b>2> 'C:\Caminho\backup_log.txt': </b>Caminho para salvar log do backup para acompanhamento em caso de erros;</p></li>
+                        <li><p><b>endlocal: </b>Retorna valor original das variáveis de ambiente;</p></li>
+                    </ul>
+                    <p>Para executar o arquivo via Agendador de Tarefas do Windows, é necessário incluir um novo agendamento, preencher as informações necessárias para inclusão e escolher o melhor horário para a tarefa ser executada.</p>
+                    <p>Na aba disparadores, onde podemos acrescentar em quais momentos a tarefa será executada, uma ou mais vezes no dia, ou somente uma vez na semana, esse controle fica por escolha do usuário. Na aba ações, devemos selecionar o arquivo .bat criado, quando chegar na hora do agendamento, a rotina executar o .bat automaticamente efetuando o backup conforme detalhado.</p>
+                    <h5>Localização das rotinas para aplicação de agenda</h5>
+                    <img src='AgendadorDeTarefas.png' alt='Localização das rotinas para aplicação de agenda' height='550px'>
+                    <p><b>Documentação disponibilizada em:</b></p>
+                    <ul>    
+                        <li><p>https:&sol;&sol;www.postgresql.org/docs/current/app-pgdump.html</p></li>
+                    </ul>
+                `)">Backup via agendamento</a></li>
+            </ul>
+        </li>
+        <li><a onclick="toggleSubmenu('submenu2')">Autenticação</a>
+            <ul class="submenu" id="submenu2">
+                <li><a onclick="mostrarMensagem(`
+                    <h2>O que é?</h2>
+                    <p>A autenticação é um processo de segurança para verificar a veracidade e autenticidade de uma pessoa ou objeto. O tema da autenticação de um indivíduo, entidade ou objeto não é algo novo, que significa original, genuíno. Portanto, a autenticação é baseada na comparação e correspondência para determinar se algo ou alguém é, de fato, o que ou quem afirmam ser.</p>
+                    <h3>Como funciona a autenticação</h3>
+                    <p>O objetivo da autenticação de uma pessoa nos sistemas digitais atuais é impedir o acesso de pessoas não autorizadas a determinadas contas ou certos ambientes físicos e digitais. O processo de autenticação garante o acesso apenas aos usuários legítimos por meio do reconhecimento das credenciais individuais previamente registradas. A autenticação do usuário acontece quando as credenciais fornecidas correspondem ao que está armazenado. Caso contrário, pode se tratar de um agente mal-intencionado em busca de um acesso não autorizado.</p>
+                    <p>O processo de autenticação mais comum é a autenticação de fator único, mas dependendo do risco de acesso não autorizado, recomenda-se a adoção da autenticação multifator.</p>
+                    <h3>O que é autenticação multifator (MFA)?</h3>
+                    <p>A MFA é um processo de autenticação que verifica a autenticidade da identidade de um usuário através do uso de duas ou mais evidências, ou fatores. Um dos principais objetivos da MFA é a adição de fatores de autenticação para uma maior segurança no processo. Uma boa estratégia de autenticação multifator deve buscar um equilíbrio entre esse aspecto de segurança adicional e a conveniência para o usuário.</p>
+                    <h5>Exemplo de autenticacao em dois fatores</h5>
+                    <img src='Autenticacao2Fatores.png' alt='Autenticacao em Dois Fatores' height='200px'>
+                `)">O que é?</a></li>
+                <li><a onclick="mostrarMensagem(`
+                    <h2>Arquivo postgresql.conf</h2>
+                    <p>As configurações para autenticação devem ser feitas no arquivo “postgresql.conf. Com o arquivo em questão, podemos limitar o acesso ao servidor de banco de dados ou efetuar um maior controle de quem está conectado no mesmo, o arquivo “postgresql.conf” contém muitas informações que podem ser utilizadas conforme necessário, contudo, a coluna listen_addresses, é responsável por controlar quem vai ter acesso ao banco de dados. Por padrão o mesmo está preenchido com o valor ‘*’, isso representa que aceita todos os IPs para conexão.
+                    <p>O caminho para efetuar ajustes nesse arquivo, segue em um padrão conforme demais software instalados no sistema operacional windows, normalmente o mesmo é encontrado em 'C:\Program\Files\PostgreSQL\versão_instalada\data\postgresql.conf'. Para as novas validações ficarem disponíveis é necessário reiniciar os serviços do postgresql ou executar através de uma consulta sql a função pg_reload_conf(), a mesma recarrega o arquivo de configuração mesmo com a instância do postgresql em atividade, conforme capítulo 20.1 disponibilizado na documentação do postgresql, em caso de divergências de informações algumas funcionalidades podem não ficarem aptas para utilização. Na imagem abaixo podemos verificar como efetuar a função via query e o retorno da mesma.</p>
+                    <h5>Scrip e retorno ao recarregar configurações</h5>
+                    <img src='FunctionReload.png' alt='Function Reload'>
+                    <p>O arquivo “postgresql.conf” pode ser amarrado junto ao próximo arquivo apresentado, “pg_hba.conf”, onde mesmo deixando liberados todos os tipos de conexões, podemos controlar acessos específicos nos tipos de conexões Unix, IPV4 e IPV6.</p>
+                    <p>Com o arquivo de configuração “postgresql.conf” é possível efetuar diversos ajustes, não somente referente a conexão/autenticação, mas também ativação de logs, limites de timeout em caso de falha de conexão, até a porta padrão utilizada no postgresql, entre muitas configurações.</p>
+                    <p><b>Documentação disponibilizada em:</b></p>
+                    <ul>    
+                        <li><p>https:&sol;&sol;www.postgresql.org/docs/current/config-setting.html</p></li>
+                    </ul>
+                `)">Arquivo postgresql.conf</a></li>
+                <li><a onclick="mostrarMensagem(`
+                    <h2>Arquivo pg_hba.conf</h2>
+                    <p>O arquivo “pg_hba_conf” efetua a autenticação relacionada diretamente na rede do computador, além do “pg_roles” que seriam os usuários e grupos de usuários para assim identificar quais seus privilégios, com esse arquivo é possível controlar quem terá acesso no banco de dados, o mesmo não destaca seus privilégios, mas sim quem vai conseguir acessar.</p>
+                    <p>O arquivo em questão fica disponível no caminho que foi instalado o PostgreSQL, após localizar a base do banco, deve-se acessar as pasta versao_Postgres\data\pg_hba.conf, no próprio arquivo a alguns detalhes de como efetuar a configuração para aumentar o nível de confiabilidade com a autenticação ao banco de dados. Para configurar somente os acessos da necessidade do usuário, deve-se seguir uma sequência dos campos para o PostgreSQL conseguir identificar na sua inicialização, por padrão o arquivo disponibiliza todos os tipos de acessos abertos, logo o usuário fica responsável por liberar somente acessos de sua preferência</p>
+                    <h5>Exemplo de preenchimento do arquivo pg_hba.conf</h5>
+                    <img src='ArquivoPgHbaConf.png' alt='Exemplo de preenchimento do arquivo pg_hba.conf'>
+                    <p>Na imagem acima, podemos notar que foram comentadas a configuração padrão disponível no arquivo, e liberado acesso somente para o IP da máquina em questão. Outro fato que podemos notar, por padrão, em todos os tipos de conexões nas colunas DATABASE e USER é utilizada a palavra all, que disponibiliza acesso a todos os usuário do bancos de dados, conforme destacado, foi disponibilizado para o IP em questão somente um DATABASE e USER específico.</p>
+                    <p>Toda atualização efetuada no arquivo “pg_hba.conf”, para ser inserida é necessário a reinicialização do serviço do PostgreSQL, caso contrário, a alteração não entrará em vigor.</p>
+                    <p>Um detalhe que é necessário cuidar, caso haja alteração nas configurações padrão do postgresql, é necessário validar as propriedades dos servers criados dentro do banco de dados, pois caso haja diferenças de endereços IP, pode ocorrer que não seja possível efetuar a conexão. Para verificar essa situação, basta acessar o pgAdmin ou qualquer outra IDE que se aplique ao gerenciador de banco de dados postgresql, e assim verificar as propriedades do servidor em questão.</p>
+                    <h5>Rotina para visualizar as propriedades de um servidor no pgadmin</h5>
+                    <img src='VisualizarPropriedadesDaConexao.png' alt='Como Visualizar Propriedades da Conexao'>
+                    <h5>Conexão existente em um servidor via pgadmin</h5>
+                    <img src='PropriedadesDaConexao.png' alt='Propriedades da Conexao'>
+                    <p><b>Documentação disponibilizada em:</b></p>
+                    <ul>    
+                        <li><p>https:&sol;&sol;www.postgresql.org/docs/current/auth-pg-hba-conf.html</p></li>
+                    </ul>
+                `)">Arquivo pg_hba.conf</a></li>
+            </ul>
+        </li>
+        <li><a onclick="toggleSubmenu('submenu2')">Criptografia</a>
+            <ul class="submenu" id="submenu2">
+                <li><a onclick="mostrarMensagem(`
+                    <h2>O que é?</h2>
+                    <p>Criptografia em segurança virtual é a conversão de dados de um formato legível em um formato codificado. Os dados criptografados só podem ser lidos ou processados ​​depois de serem descriptografados.</p>
+                    <p>A criptografia é um elemento fundamental da segurança de dados. É a forma mais simples e mais importante de garantir que as informações do sistema de um computador não sejam roubadas e lidas por alguém que deseja usá-las para fins maliciosos.</p>
+                    <p>A criptografia de segurança de dados é amplamente usada por usuários individuais e grandes corporações para proteger as informações dos usuários enviadas entre um navegador e um servidor. Essas informações podem incluir de tudo, desde dados de pagamento até informações pessoais. Os softwares de criptografia de dados, também conhecidos como algoritmo de criptografia ou codificação, são usados para desenvolver um esquema de criptografia que teoricamente pode ser desvendado apenas com uma grande capacidade de processamento.</p>
+                    <h5>Exemplo de dados criptografados</h5>
+                    <img src='ExemploCriptografia.png' alt='img'>
+                `)">O que é?</a></li>
+                <li><a onclick="mostrarMensagem(`
+                    <h2>Métodos de Criptografia</h2>
+                    <p>Os dois métodos mais comuns são a criptografia simétrica e assimétrica. Os nomes se referem a se a mesma chave é usada ou não para criptografia e descriptografia:</p>
+                    <p>Chaves de criptografia simétrica: também conhecidas como criptografia de chave privada. A chave usada para codificar é a mesma usada para decodificar, sendo a melhor opção para usuários individuais e sistemas fechados. Caso contrário, a chave deve ser enviada ao destinatário. Isso aumenta o risco de comprometimento se for interceptada por um terceiro, como um hacker. Esse método é mais rápido do que o método assimétrico.</p>
+                    <p>Chaves de criptografia assimétrica: esse tipo usa duas chaves diferentes, uma pública e uma privada, que são vinculadas matematicamente. Essencialmente, as chaves são apenas grandes números que foram emparelhados um ao outro, mas não são idênticos, daí o termo assimétrico. A chave privada é mantida em segredo pelo usuário, e a chave pública também é compartilhada entre destinatários autorizados ou disponibilizada ao público em geral.</p>
+                    <h5>Exemplo de criptografia simétrica</h5>
+                    <img src='Topic12NotesImage1.jpg' alt='Serviço 2'>
+                    <h3>Exemplos de algoritmos de criptografia</h3>
+                    <p>Os algoritmos de criptografia são usados para transformar os dados em texto cifrado. Um algoritmo usa a chave de criptografia para alterar os dados de forma previsível para que, mesmo que os dados criptografados apareçam aleatoriamente, eles possam ser transformados em texto simples usando a chave de descriptografia.</p></li>
+                    <p>Há vários tipos diferentes de algoritmos de criptografia criados para diferentes objetivos. Novos algoritmos são desenvolvidos quando os antigos tornam-se inseguros. Entre os algoritmos de criptografia mais conhecidos, incluem-se:</p></li>
+                    <ul>    
+                        <li><p><b>Criptografia DES: </b>DES significa Data Encryption Standard. Trata-se de um algoritmo de criptografia simétrica desatualizado, não considerado adequado para os usos atuais. Portanto, outros algoritmos de criptografia sucederam o DES.</p></li>
+                        <li><p><b>Criptografia 3DES: </b>3DES significa Triple Data Encryption Standard. Esse é um algoritmo de chave simétrica, e a palavra 'triple' (triplo) é usada porque os dados passam pelo algorítmo DES três vezes durante o processo de criptografia. O Triple DES está sendo lentamente substituído, mas continua sendo uma solução de criptografia de hardware confiável para serviços financeiros e outros setores.</p></li>
+                        <li><p><b>Criptografia AES: </b>AES significa Advanced Encryption Standard e foi desenvolvido para atualizar o algoritmo DES original. Entre alguns dos aplicativos mais comuns de algoritmo AES incluem-se aplicativos de mensagens, como o Signal ou WhatsApp, e o programa de compactação de arquivos WinZip.</p></li>
+                        <li><p><b>Criptografia RSA: </b>O RSA foi o primeiro algoritmo de criptografia assimétrica amplamente disponibilizado ao público. O RSA é popular devido ao tamanho da sua chave e, por isso, amplamente utilizado para transmissão de dados segura. RSA significa Rivest, Shamir e Adleman, os sobrenomes dos matemáticos que descreveram esse algoritmo. O RSA é considerado um algoritmo assimétrico por usar um par de chaves.</p></li>
+                        <li><p><b>Criptografia Twofish: </b>Usado tanto em hardware quanto em software, o Twofish é considerado um dos mais rápidos do seu tipo. O Twofish não é patenteado, sendo gratuitamente disponibilizado para quem quiser usá-lo. Como resultado, você o encontrará em pacotes de programas de criptografia como PhotoEncrypt, GPG e o popular software de código aberto TrueCrypt.</p></li>
+                        <li><p><b>Criptografia RC4: </b>Usado em WEP e WPA, que são protocolos de criptografia comumente usados em roteadores sem fio.</p></li>
+                    </ul>
+                    <p>Entre os exemplos de criptografia assimétrica, incluem-se RSA e DSA. Entre os exemplos de criptografia simétrica, encontram-se RC4 e DES. Além dos algoritmos de criptografia, há também os que são conhecidos como Common Criteria (CC):</p>
+                `)">Métodos de Criptografia</a></li>
+                <li><a onclick="mostrarMensagem(`
+                    <h2>Funções de Criptografia</h2>
+                    <p>O postgresql disponibiliza uma extensão chamada pgcrypto para poder criptografar/comparar os dados diretamente pelo banco de dados, não precisando utilizar alguma biblioteca específica ou método dentro do back-end. Com essa extensão é possível efetuar a criação de funções via banco de dados que efetuam esse papel de deixar os dados ilegíveis para leitura.</p>
+                    <h5>Criação da extensão PgCrypto</h5>
+                    <img src='InstalarPGCryto.png' alt='img'>
+                    <p>Com a função crypt, é possível efetuar a alteração do dado para ilegíveis, como também a comparação da mesma, em caso de acesso a um sistema é possível efetuar a criação de uma função que receba uma senha para assim criptografar a mesma, e outra função que recebe usuario e senha para comparar se o usuário tem acesso ou não ao sistema.</p>
+                    <p>Para uma boa utilização da função crypt, devemos utilizar a função gen_salt(método_de_criptofia) para criar um salto de emparelhamento de chave, com a segunda função destacada, podemos garantir uma segurança maior contra algoritmos de força bruta.</p>
+                    <h5>Resultado utilizando funções da extensão pgcrypto</h5>
+                    <img src='MetodosDeCrypto.png' alt='img'>
+                    <p>Dos métodos de criptografia disponibilizados na extensão pgcrypto, o método crypt é o qual garante mais confiabilidade, mesmo sem a utilização de uma função extra como o gen_salt(), ela garante a proteção do dado criptografado, dentro da extensão em questão, a disponível uma outra função de criptografia de informações chamada de pgp_sym_encrypt(), ela funciona da mesma maneira que a crypt, porém se não for utilizado um valor de salto através da função gen_salt(), o valor criptografado pode ser descriptografado, perdendo a confiabilidade do dado.</p>
+                    <h5>Exemplo utilizando a função pgp_sym_decrypt</h5>
+                    <img src='ExemploDecrypt.png' alt='img'>
+                    <p>Além da extensão disponivel no PostgreSQL, também podemos estar utilizando as bibliotecas de criptografia disponibilizada para o backend, baseando-se na linaguem nodeJS, está disponibilizada a biblioteca bcrypt.</p>
+                    <p>bcrypt é uma função de hashing de senha projetada por Niels Provos e David Mazières, baseada na cifra Blowfish e apresentada na USENIX em 1999. [1] Além de incorporar um salt para proteger contra ataques de tabela arco-íris , bcrypt é uma função adaptativa: ao longo do tempo, a contagem de iterações pode ser aumentada para torná-la mais lenta, de modo que permaneça resistente a ataques de busca de força bruta mesmo com o aumento do poder de computação.</p>
+                    <h5>Exemplo utilizando a biblioteca bcrypt</h5>
+                    <img src='ExemploBcrypt.png' alt='img'>
+                    <p><b>Documentação disponibilizada em:</b></p>
+                    <ul>    
+                        <li><p>https:&sol;&sol;www.postgresql.org/docs/current/pgcrypto.html</p></li>
+                        <li><p>https:&sol;&sol;www.npmjs.com/package/bcrypt</p></li>
+                    </ul>
+                `)">Funções de Criptografia</a></li>
+            </ul>
+        </li>
+        <li><a onclick="toggleSubmenu('submenu2')">Gerenciamento de Acesso</a>
+            <ul class="submenu" id="submenu2">
+                <li><a onclick="mostrarMensagem(`
+                    <h2>O que é?</h2>
+                    <p>Gerenciamento de acesso é o processo de controlar e rastrear o acesso. Cada usuário dentro de um sistema terá privilégios diferentes dentro desse sistema, com base em suas necessidades individuais.</p>
+                    <p>O PostgreSQL gerencia as permissões de acesso por meio do conceito de roles (papeis). Roles podem ser tanto users (usuários), quanto group (grupos) de usuários. Roles são também proprietários de objetos no banco de dados e, nessa condição, autorizar acesso a outros roles e, inclusive, transferir propriedade a outros roles.</p>
+                `)">O que é?</a></li>
+                <li><a onclick="mostrarMensagem(`
+                    <h2>Criação/Gerenciamento de acesso - PgAdmin</h2>
+                    <p>Quando acessado uma das conexões ativas podemos notar um submenu com os usuários e grupos de usuários existentes, assim é possível verificar e gerenciar os privilégios.</p>
+                    <h5>Usuários/Grupos de usuários via PgAdmin</h5>
+                    <img src='RolesPgAdmin.png' alt='img'>
+                    <p>Para gerenciamento de um usuário, basta clicar com o botão direito do mouse logo acima de Login/Group Roles e selecionar Create, logo em seguida abrirá uma tela para preenchimento de algumas informações, cada aba ficará responsável por tal situação. Como senha e data de expiração do usuário, funcionalidades que o mesmo poderá efetuar ou posicionar esse novo usuário dentro de um grupo já criado, já buscando os privilégios pré informados.</p>
+                    <h5>Criação de Usuários/Grupos de usuários via PgAdmin</h5>
+                    <img src='CriacaoUserPgAdmin.png' alt='img'>
+                `)">Criação/Gerenciamento de acesso - PgAdmin</a></li>
+                <li><a onclick="mostrarMensagem(`
+                    <h2>Criação/Gerenciamento de acesso - Script</h2>
+                    <p>Além da criação manualmente pelas rotinas disponibilizadas pelo PostgreSQL, pode-se efetuar a criação e aplicação de privilégios para os usuários e grupos de usuários através de comando SQLs, conforme documentação disponibilizada pelo PostgreSQL, no capítulo 18, podemos localizar a apresentação e criação dos Login/Group Roles.</p>
+                    <p>Na mesma documentação podemos verificar a aplicação de privilégios para esses usuários ou grupos, pode-se haver a disponibilização de alteração de dados como a criação de funções e gatilhos, para criação de usuários e disponibilização de acesso para os mesmo, fica por conta do DBA a responsabilidade de liberação.</p>
+                    <h5>Criação de Usuários/Grupos de usuários via PgAdmin</h5>                    
+                    <img src='CriarUserViaScript.png' alt='img'>
+                    <p>Após criação do usuário, é possível verificar seus privilégios atribuídos e então revogar os mesmo ou efetuar novas alterações/liberações.</p>
+                    <h5>Criação de Usuários/Grupos de usuários via PgAdmin</h5>                    
+                    <img src='VisualizarPrivilegiosScript.png' alt='img'>
+                    <p><b>Documentação disponibilizada em:</b></p>
+                    <ul>    
+                        <li><p>https:&sol;&sol;www.postgresql.org/docs/8.1/user-manag.html</p></li>
+                        <li><p>https:&sol;&sol;www.postgresql.org/docs/current/view-pg-roles.html</p></li>
+                    </ul>
+                `)">Criação/Gerenciamento de acesso - Script</a></li>
+                <li><a onclick="mostrarMensagem(`
+                    <h2>Monitoramento de acesso</h2>
+                    <p>O monitoramento de acesso ao banco de dados refere-se à prática de rastrear e registrar atividades relacionadas ao banco de dados para garantir a segurança, desempenho e conformidade com políticas de acesso. Isso envolve o acompanhamento das ações dos usuários, aplicativos e sistemas que interagem com o banco de dados</p>
+                    <p>Diretamente pelo pgAdmin, podemos observar ações dos usuários conectados as instâncias existentes de banco de dados. Basta selcionar uma conexão do banco existente e clicar na aba Dashboard, assim mostrará todas as conexões ativas no momento.</p>
+                    <h5>Monitoramento de acesso via PgAdmin</h5>                    
+                    <img src='MonitoramentoPgAdmin.png' alt='img'>
+                `)">Monitoramento de acesso</a></li>
+            </ul>
+        </li>
+        <li><a onclick="toggleSubmenu('submenu2')">Aplicação de Testes</a>
+            <ul class="submenu" id="submenu2">
+                <li><a onclick="mostrarMensagem(`
+                    <h2>O que é?</h2>
+                    <p>Realizar testes de segurança em aplicações web é essencial para identificar e mitigar vulnerabilidades que possam ser exploradas por invasores. Existem várias abordagens e ferramentas que você pode usar para testar a segurança de suas aplicações web.</p>
+                    <p>Nos próximos subsmenus presentes na aba 'Aplicação de Testes', estára sendo destacado dois modelos de validações de segurança diretamente em sua api Web.</p>
+                    <h5>Seguranca Web</h5>
+                    <img src='seguranca-web.jpg' alt='img'>
+                `)">O que é?</a></li>
+                <li><a onclick="mostrarMensagem(`
+                    <h2>SqlMap</h2>
+                    <p>Para teste de invação utilizando o método de SQL Injection, está disponibilizado a ferramenta SQLMap, é uma ferramenta de código aberto disponibilizada para efetuar tentativas de invasões em aplicações web, conforme destacada na documentação presente no site official da ferramenta, o SQLMap deve ser utilizado para testes em aplicações que o usuário que efetuar as tentativas de invasões, tenham permissões para seu uso, em caso contrário, a penetração pode ser ilegal ou antiética.</p>
+                    <p>Para utilização da do SQLMap, são disponibilizados diversos tipos de comandos, para assim ter uma grande variedade de opções de testes, independe dos comandos que serão utilizados, existem alguns comandos que são de grande importância para realização dos testes. </p>
+                    <p>Esses comandos são, python, sqlmap.py, -u, demais comandos são complementos para utilização da aplicação. O comando python refere-se a interpretador da linguagem, que nesse caso seria a linguagem de programação python, já o comando sqlmap.py, é o arquivo principal da ferramenta, e por fim, o comando -u, aguarda receber a url que será avaliada sua segurança.</p>
+                    <p>Durante o desenvolvimento de uma api web, é necessário a criação de um arquivo com nome de routes, nele são destacadas todas as rotas disponíveis para acesso durante o uso da api, todas as rotas são acessadas através da ação do usuário acessado pelo sistema. Para utilização do SQLMap, é necessário efetuar os testes passando diretamente na url a rota em questão que será avaliada, pois como é necessário a ação do usuário para o clique na rotina para assim chamar a rota, o SQLMap se comporta da mesma maneira, espera a rota desejada para iniciar os testes.</p>
+                    <p>No desenvolvimento para aplicações web, é disponibilizada a biblioteca Sequelize para linguagem de programação Node.js, segundo documentação disponibilizada pelos colaboradores que desenvolveram a mesma, a utilização da mesma seria para facilitar a conexão com o banco de dados. Devido a conexão diretamente com o banco de dados, a segurança da transação dos dados deve ser de grande importância.</p>
+                    <p>Utilizado para validação a rota “transportadora”, em uma api local, foi utilizando os seguintes comandos: python sqlmap.py -u 'http:&sol;&sol;localhost:5000/transportadora/' --dbms=PostgreSQL --dump --batch, com ele foi possível identificar que mesmo que um usuário que não esteja acessado no sistema, conseguia ter acesso a rota de transportadora, logo conseguindo acessar todos os dados das transportadoras, por ser o retorno da rota em questão.</p>
+                    <h5>Exemplo de utilização do SqlMap</h5>
+                    <img src='TestesSqlMap.png' alt='img'>
+                    <h5>Retorno presente no Back-end após requisões do SqlMap</h5>
+                    <img src='retornoBackEnd.png' alt='img'>
+                    <p><b>Documentação disponibilizada em:</b></p>
+                    <ul>    
+                        <li><p>https:&sol;&sol;github.com/sqlmapproject/sqlmap</p></li>
+                        <li><p>https:&sol;&sol;sqlmap.org</p></li>
+                    </ul>
+                `)">SqlMap</a></li>
+                <li><a onclick="mostrarMensagem(`
+                    <h2>PgCrypto</h2>
+                    <p>Conforme descrito no submenu 'Funções de Criptografia', existe disponibel no PostgreSQL a extensão PgCrypto, onde é possível criptografar e descriptografar dados, desta maneira, será destacado a criação de uma procedure para validação das informações criptografadas no banco de dados, com a intuição de verificar se as técnicas utilizadas destacam uma boa confiança de proteção de dados.</p>
+                    <p>A procedure criada, está apresentada abaixo, com ela, será efetuado a consulta diretamente na tabela de usuário onde os mesmo contém as senhas criptografadas, dessa maneira será validado usuário por usuário para assim verificar se não pode ser descriptografado sua senha, por padrão, todos os usuários são inseridos a mesma função, mas por determinada situação algum usuário pode ter sido alterado e passou por algum processo diferente, assim podemos validar a proteção da informação.</p>
+                    <p>Foi utilizado a tratativa de exceção, pois, durante a execução de um script sql, caso ocorrer um erro, o processamento do mesmo é finalizado após o erro, no caso da função pgp_sym_decrypt, a mesma retorna um erro caso não consiga descriptografar a informação, assim foi tratado para caso não conseguir descriptografar, a mesma continua sua execução até finalizar os usuário.</p>
+                    <p>Métodos disponiveis para tentativa  de descriptografia:</p>
+                    <ul>
+                        <li>DES</li>
+                        <li>3DES</li>
+                        <li>XDES</li>
+                        <li>BF</li>
+                        <li>SHA1</li>
+                        <li>RC2</li>
+                        <li>RC4</li>
+                        <li>AES</li>
+                        <li>MD5</li>
+                    </ul>
+                    <h5>Procedure criada para execução em PostgreSQL</h5>
+                    <img src='procedurePgCrypto.png' alt='img'>
+                    <p><b>Documentação disponibilizada em:</b></p>
+                    <ul>    
+                        <li><p>https:&sol;&sol;www.postgresql.org/docs/current/pgcrypto.html</p></li>
+                    </ul>
+                `)">PgCrypto</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <div id="mensagem" class="mensagem"></div>
+
+    <script>
+        function toggleSubmenu(submenuId) {
+            const submenus = document.querySelectorAll('.submenu');
+            submenus.forEach(submenu => {
+                if (submenu.id === submenuId) {
+                    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+                } else {
+                    submenu.style.display = 'none';
+                }
+            });
+        }
+
+        function mostrarMensagem(mensagem) {
+            const mensagemDiv = document.getElementById('mensagem');
+            mensagemDiv.innerHTML = mensagem;
+        }
+    </script>
+</body>
+</html>
